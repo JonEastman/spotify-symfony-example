@@ -30,7 +30,7 @@ class SpotifyController extends Controller
         }
 
         return $this->render('default/home_page.html.twig', array(
-            'form'      => $form->createView()
+            'form'  => $form->createView()
         ));
     }
 }
