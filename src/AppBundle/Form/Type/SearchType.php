@@ -10,7 +10,7 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('searchText', 'text', array('attr' => array('placeholder' => 'Enter Artist, Album or song'), 'label' => false, 'required' => true))
+            ->add('searchText', 'text', array('attr' => array('placeholder' => 'Enter Album Name'), 'label' => false, 'required' => true))
             ->getForm();
     }
 

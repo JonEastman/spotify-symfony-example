@@ -4,7 +4,7 @@ namespace AppBundle\Utils;
 
 use GuzzleHttp\Client;
 
-class SpotifyService {
+class SpotifyManager {
 
     const SPOTIFY_API = 'https://api.spotify.com/v1/';
     const TYPE_TRACK = 'track';
@@ -14,10 +14,10 @@ class SpotifyService {
 
         $client = new Client();
 
-        $response = $client->get(self::SPOTIFY_API . 'search', [
+        $response = $client->get(SpotifyManager::SPOTIFY_API . 'search', [
             'query' => [
                 'q' => urlencode($query),
-                'type' => self::TYPE_ALBUM,
+                'type' => SpotifyManager::TYPE_ALBUM,
             ]
         ]);
 
@@ -28,7 +28,7 @@ class SpotifyService {
 
         $client = new Client();
 
-        $response = $client->get(self::SPOTIFY_API . 'albums/' . $id);
+        $response = $client->get(SpotifyManager::SPOTIFY_API . 'albums/' . $id);
 
         return $response->json();
     }

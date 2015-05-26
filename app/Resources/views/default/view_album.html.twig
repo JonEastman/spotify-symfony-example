@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album: {{ album.name }}{% endblock %}
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>{{ album.name }}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <img src="{{ album.largeImage.url }}" width="100%">
+        </div>
+        <div class="col-xs-6">
+            <p>Album Tracks</p>
+            <ol>
+                 {% for track in album.tracks %}
+                    <li class="marginTop10"><a href="{{ track.previewUrl }}" target="_blank">{{ track.name }}</a></li>
+                 {% endfor %}
+             </ol>
+        </div>
+    </div>
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Album;
 use AppBundle\Form\Type\SearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -10,10 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 class SpotifyController extends Controller
 {
     /**
+     * Search Page (Home Page)
+     *
      * @Route("/", name="home_page")
      */
     public function homeAction(Request $request)
     {
+        $albums = null;
 
         $form = $this->createForm(new SearchType());
 
@@ -25,12 +29,40 @@ class SpotifyController extends Controller
 
             $searchText = $data['searchText'];
 
-            var_dump($searchText); die;
-
+            //Get search results
+            $albums = $this->get('album_manager')->search($searchText);
         }
 
         return $this->render('default/home_page.html.twig', array(
-            'form'  => $form->createView()
+            'form'      => $form->createView(),
+            'albums'    => $albums
+        ));
+    }
+
+    /**
+     * Display an Album
+     *
+     * @Route("/album/{id}", name="view_album", requirements={"id": "\d+"})
+     */
+    public function viewAlbumAction(Album $album)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        if (!$album->getDownLoaded()) {
+
+            //Save Tracks in Database
+            $this->get('album_manager')->saveTracks($album);
+
+            //Mark Album as tracks downloaded
+            $album->setDownLoaded(true);
+
+            $em->persist($album);
+            $em->flush();
+        }
+
+        return $this->render('default/view_album.html.twig', array(
+            'album'    => $album
         ));
     }
 }

@@ -23,5 +23,18 @@
         </div>
         {{ form_end(form) }}
 
+        <div class="row marginTop20">
+            {% for album in albums %}
+                <div class="col-xs-4">
+                    <div class="album-cover-image">
+                        <a href="{{ path('view_album', {'id': album.id}) }}">
+                            <img src="{{ album.PhotoPreview }}" class="album-cover">
+                        </a>
+                    </div>
+                    <a href="{{ path('view_album', {'id': album.id}) }}">{{ album.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+
     </div>
 {% endblock %}

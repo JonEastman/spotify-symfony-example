@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,6 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Album
 {
+    const SMALL_SIZE = 64;
+    const MEDIUM_SIZE = 300;
+    const LARGE_SIZE = 640;
+
     /**
      * @var integer
      *
@@ -32,14 +37,14 @@ class Album
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="modified", type="datetime")
+     * @ORM\Column(name="modified", type="datetime", nullable=true)
      */
     private $modified;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="spotify_id", type="string", length=50)
+     * @ORM\Column(name="spotify_id", type="string", length=100)
      */
     private $spotifyId;
 
@@ -51,6 +56,13 @@ class Album
      * @ORM\Column(name="spotify_url", type="string", length=255)
      */
     private $spotifyUrl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo_preview", type="string", length=255, nullable=true)
+     */
+    private $photoPreview;
 
     /**
      * @var string
@@ -88,6 +100,13 @@ class Album
     private $albumType;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="down_loaded", type="boolean", nullable=true)
+     */
+    private $downLoaded;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Track", mappedBy="album")
      *
      */
@@ -102,6 +121,8 @@ class Album
     public function __construct()
     {
         $this->created = new \DateTime();
+        $this->images = new ArrayCollection();
+        $this->tracks = new ArrayCollection();
     }
 
     /**
@@ -144,6 +165,22 @@ class Album
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * @param boolean $downLoaded
+     */
+    public function setDownLoaded($downLoaded)
+    {
+        $this->downLoaded = $downLoaded;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getDownLoaded()
+    {
+        return $this->downLoaded;
     }
 
     /**
@@ -200,6 +237,22 @@ class Album
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param string $photoPreview
+     */
+    public function setPhotoPreview($photoPreview)
+    {
+        $this->photoPreview = $photoPreview;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhotoPreview()
+    {
+        return $this->photoPreview;
     }
 
     /**
@@ -281,5 +334,28 @@ class Album
     public function updateModifiedDatetime()
     {
         $this->setModified(new \DateTime());
+    }
+
+    public function getSmallImage() {
+
+        $image = $this->getImages()->get(0);
+
+        return $image;
+    }
+
+    public function getMediumImage() {
+
+        $images = $this->getImages();
+
+        $image = $images[1];
+
+        return $image;
+    }
+
+    public function getLargeImage() {
+
+        $image = $this->getImages()->get(2);
+
+        return $image;
     }
 }
