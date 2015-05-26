@@ -2,12 +2,43 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="{% block description %}This is a sample application to search the Spotify API.{% endblock %}">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {% stylesheets
+                'css/common/bootstrap.css'
+                'css/common/custom.css' filter='cssrewrite' output='css/built/common.css'%}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block body %}
+            <div class="container">
+
+                {# Include navigation bar #}
+                {{ include('navigation/navbar.html.twig') }}
+
+                {% block body_content %}
+                    <div class="jumbotron">
+                        <h1>Spotify Example</h1>
+                        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+                        <p>
+                            <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+                        </p>
+                    </div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+
+        {% block javascripts %}
+            {% javascripts
+                'js/common/bootstrap.js'
+                'js/common/custom.js' output='js/built/common.js'%}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>

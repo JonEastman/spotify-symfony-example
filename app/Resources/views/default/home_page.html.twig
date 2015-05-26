@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Spotify Search{% endblock %}
+
+
+{% block body_content %}
+    <div class="jumbotron">
+        <h1>Spotify Example</h1>
+        <p>Search the Spotify database and view albums with this application.</p>
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <p>
+                    <button type="submit" class="btn btn-primary search-btn center-block">Search </button>
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                <div class="">
+                    {{ form_row(form.searchText) }}
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
