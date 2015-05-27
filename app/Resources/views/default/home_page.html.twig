@@ -28,7 +28,7 @@
                 <div class="col-xs-4">
                     <div class="album-cover-image">
                         <a href="{{ path('view_album', {'id': album.id}) }}">
-                            <img src="{% if album.PhotoPreview %}{{ album.PhotoPreview }}{% else %}http://communityvoices.post-gazette.com/spot.png{% endif %}" class="album-cover">
+                            <img src="{% if album.PhotoPreview %}{{ album.PhotoPreview }}{% else %}http://communityvoices.post-gazette.com/spot.png{% endif %}" class="album-image">
                         </a>
                     </div>
                     <a href="{{ path('view_album', {'id': album.id}) }}">{{ album.name }}</a>

@@ -2,6 +2,9 @@
     width: 150px;
 }
 
+.album-image {
+    width: 100%;
+}
 
 .marginTop10 {
     margin-top: 10px;
