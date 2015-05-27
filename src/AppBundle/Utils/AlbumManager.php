@@ -67,8 +67,13 @@ class AlbumManager {
 
         //extra array variables
         $externalUrls = $item['external_urls'];
+
+        //Quick and dirty way to fix no images from Spotify api, could do better...
         $images = $item['images'];
-        $previewImage = $images[1];
+        if ($images[1]){
+            $previewImage = $images[1];
+            $album->setPhotoPreview($previewImage['url']);
+        }
 
         $album->setSpotifyId($item['id']);
         $album->setSpotifyUrl($externalUrls['spotify']);
@@ -78,7 +83,7 @@ class AlbumManager {
         $album->setHref($item['href']);
         $album->setType($item['type']);
         $album->setUri($item['uri']);
-        $album->setPhotoPreview($previewImage['url']);
+
 
         $this->em->persist($album);
         $this->em->flush($album);

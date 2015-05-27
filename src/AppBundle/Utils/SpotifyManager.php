@@ -10,6 +10,12 @@ class SpotifyManager {
     const TYPE_TRACK = 'track';
     const TYPE_ALBUM = 'album';
 
+    /**
+     * Query the Spotify API for an album search
+     *
+     * @param $query
+     * @return mixed
+     */
     public function search($query) {
 
         $client = new Client();
@@ -24,6 +30,12 @@ class SpotifyManager {
         return $response->json()['albums'];
     }
 
+    /**
+     * Query the Spotify API for a specific Album
+     *
+     * @param $id
+     * @return mixed
+     */
     public function getAlbum($id) {
 
         $client = new Client();

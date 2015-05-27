@@ -31,6 +31,9 @@ class SpotifyController extends Controller
 
             //Get search results
             $albums = $this->get('album_manager')->search($searchText);
+
+            //Normally you would redirect the user to a new page...
+            // return $this->redirectToRoute('search_results', array('results' => $results));
         }
 
         return $this->render('default/home_page.html.twig', array(
@@ -64,5 +67,16 @@ class SpotifyController extends Controller
         return $this->render('default/view_album.html.twig', array(
             'album'    => $album
         ));
+    }
+
+    /**
+     * About Project
+     *
+     * @Route("/about", name="about")
+     */
+    public function aboutAction()
+    {
+
+        return $this->render('default/about.html.twig', array());
     }
 }
